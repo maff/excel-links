@@ -16,7 +16,7 @@ module.exports = (options) => {
       './src/scripts/index'
     ],
     output: {
-      path: Path.join(__dirname, 'dist'),
+      path: Path.join(__dirname, 'web', 'dist'),
       filename: 'bundle.js'
     },
     plugins: [
@@ -74,7 +74,7 @@ module.exports = (options) => {
     });
 
     webpackConfig.devServer = {
-      contentBase: './dist',
+      contentBase: './web/dist',
       hot: true,
       port: options.port,
       inline: true,
