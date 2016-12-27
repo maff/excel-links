@@ -1,5 +1,11 @@
-$body-color: blue;
+.container {
+  margin: 25px auto;
+}
 
-body {
-  color: $body-color;
-}  
+.dropzone {
+  border: 5px dashed #ccc;
+}
+
+.mt20 {
+  margin-top: 20px;
+}

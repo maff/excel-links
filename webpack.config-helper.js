@@ -55,7 +55,7 @@ module.exports = (options) => {
     );
 
     webpackConfig.module.loaders.push({
-      test: /\.scss$/i,
+      test: /\.s?css$/i,
       loader: ExtractSASS.extract(['css', 'sass'])
     });
 
@@ -65,7 +65,7 @@ module.exports = (options) => {
     );
 
     webpackConfig.module.loaders.push({
-      test: /\.scss$/i,
+      test: /\.s?css$/i,
       loaders: ['style', 'css', 'sass']
     }, {
       test: /\.js$/,
