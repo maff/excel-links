@@ -13,7 +13,7 @@ module.exports = (options) => {
     entry: [
       `webpack-dev-server/client?http://localhost:${options.port}`,
       'webpack/hot/dev-server',
-      './src/scripts/index'
+      './frontend/scripts/index'
     ],
     output: {
       path: Path.join(__dirname, 'web', 'dist'),
@@ -26,7 +26,7 @@ module.exports = (options) => {
         }
       }),
       new HtmlWebpackPlugin({
-        template: './src/index.html'
+        template: './frontend/index.html'
       })
     ],
     module: {
@@ -42,7 +42,7 @@ module.exports = (options) => {
   };
 
   if (options.isProduction) {
-    webpackConfig.entry = ['./src/scripts/index'];
+    webpackConfig.entry = ['./frontend/scripts/index'];
 
     webpackConfig.plugins.push(
       new Webpack.optimize.OccurenceOrderPlugin(),
