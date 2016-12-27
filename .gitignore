@@ -1,5 +1,13 @@
+# tmp files
 .npm
 *.log
 npm-debug.log*
-dist
-node_modules
+
+# NPM
+/node_modules
+
+# composer
+/vendor
+
+# webpack build
+/web/dist
