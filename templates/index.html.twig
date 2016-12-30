@@ -1,5 +1,6 @@
 {% extends "layout.html.twig" %}
 
+{% block title %}File Select{%endblock %}
 {% block content %}
 
     <div class="container">
@@ -9,7 +10,7 @@
             </div>
 
             <div class="col-xs-12 mt20 text-right">
-                <button id="submitButton" class="btn btn-primary btn-lg">Process</button>
+                <button id="submitButton" class="btn btn-primary btn-lg" data-href="{{ path('process') }}">Process</button>
             </div>
         </div>
     </div>

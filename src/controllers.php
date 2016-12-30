@@ -28,6 +28,8 @@ $app
     ->get('/download/{uuid}.xlsx', action('download'))
     ->bind('download');
 
+$app->get('/analyze', action('analyze'));
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;

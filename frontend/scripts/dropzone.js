@@ -7,35 +7,25 @@ import 'dropzone/dist/dropzone.css';
 
 Dropzone.autoDiscover = false;
 
+let $dropzoneContainer = $('.dropzone-container');
 let $submitButton = $('#submitButton');
 $submitButton.prop('disabled', true);
 
 let files = [];
-let excelFile = null;
-
-function isExcelFile(file) {
-    return file.name.match(/\.xlsx$/);
-}
-
 let dropzone = new Dropzone("div#dropzone", {
     url: '/',
     uploadMultiple: true,
     autoProcessQueue: false,
+    createImageThumbnails: false,
+    acceptedFiles: 'image/*',
 
     init: function () {
         let dz = this;
 
         dz.on('addedfile', function (file) {
-            console.log('addedfile', file);
+            files.push(file);
 
-            if (isExcelFile(file)) {
-                excelFile = file;
-                console.log('got excel file', file);
-            } else {
-                files.push(file);
-            }
-
-            if (excelFile && files.length > 0) {
+            if (files.length > 0) {
                 $submitButton.prop('disabled', false);
             }
         });
@@ -43,20 +33,6 @@ let dropzone = new Dropzone("div#dropzone", {
         dz.on('sending', function (xhr, formData) {
             console.log('sending', formData, arguments);
         });
-    },
-
-    accept: function (file, done) {
-        console.log('FILE', file);
-
-        if (isExcelFile(file)) {
-            if (excelFile) {
-                done('Excel file is already set');
-            } else {
-                done();
-            }
-        } else {
-            done();
-        }
     }
 });
 
@@ -69,20 +45,20 @@ $submitButton.on('click', function (e) {
     });
 
     let data = new FormData();
-    data.append('excelFile', excelFile);
-    data.append('fileNames', fileNames);
+    data.append('files', fileNames);
 
     $.ajax({
-        url: '/process',
+        url: $(this).data('href'),
         data: data,
         cache: false,
         contentType: false,
         processData: false,
         type: 'POST',
-    }).then(function() {
+    }).then(function(result) {
         console.log('success', arguments);
+        window.location.href = result.downloadURI;
     }).fail(function() {
-        console.log('fail', arguments);
+        console.error('fail', arguments);
     }).always(function() {
         console.log('always', arguments);
     });
