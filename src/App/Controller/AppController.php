@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Ramsey\Uuid\Uuid;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -56,8 +59,8 @@ class AppController
             ], 400);
         }
 
-        $excel = new \PHPExcel();
-        $sheet = $excel->getActiveSheet();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
         for ($i = 0; $i < count($files); $i++) {
             $fileName = $files[$i];
@@ -71,11 +74,10 @@ class AppController
 
             $sheet->getCell($linkCell)
                 ->setValue($filePath)
-                ->setDataType(\PHPExcel_Cell_DataType::TYPE_STRING2)
                 ->getStyle()
                     ->applyFromArray($this->linkStyle);
 
-            // $sheet->getCell($linkCell)->getHyperlink()->setUrl('http://www.phpexcel.net');
+            $sheet->getCell($linkCell)->getHyperlink()->setUrl('http://www.phpexcel.net');
             // $sheet->getCell($linkCell)->getHyperlink()->setUrl($filePath);
             // $sheet->getCell($linkCell)->getHyperlink()->setTooltip($fileName);
         }
@@ -84,7 +86,7 @@ class AppController
         $uuid = Uuid::uuid4();
 
         $fileName = $uuid . '.xlsx';
-        $writer   = \PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+        $writer   = IOFactory::createWriter($spreadsheet, 'Excel2007');
 
         ob_start();
         $writer->save('php://output');
@@ -108,7 +110,7 @@ class AppController
     {
         $file = $this->app['file_dir'] . '/test.xlsx';
 
-        $excel = \PHPExcel_IOFactory::load($file);
+        $excel = IOFactory::load($file);
         $sheet = $excel->getActiveSheet();
 
         $cell = $sheet->getCell('B1');
