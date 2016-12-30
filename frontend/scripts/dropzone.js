@@ -39,10 +39,29 @@ let dropzone = new Dropzone("div#dropzone", {
 $submitButton.on('click', function (e) {
     e.preventDefault();
 
-    let fileNames = [];
+    let $form = $('form#file-form');
+    if ($form.length > 1) {
+        $form.remove();
+    }
+
+    $form = $('<form />');
+    $form.attr('method', 'post');
+    $form.attr('action', $(this).data('href'));
+    $form.attr('id', 'file-form');
+
+    // let fileNames = [];
     files.forEach(function(file, i) {
-        fileNames.push(file.name);
+        let $input = $('<input type="hidden" />');
+        $input.attr('name', 'files[]');
+        $input.val(file.name);
+        $input.appendTo($form);
+
+        // fileNames.push(file.name);
     });
+
+    $form.submit();
+
+    return;
 
     let data = new FormData();
     data.append('files', fileNames);

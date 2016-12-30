@@ -45,17 +45,15 @@ class AppController
 
     /**
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
     public function processAction(Request $request)
     {
-        $files = $request->get('files');
+        $files = $request->get('files', []);
         if (!$files) {
             return $this->app->json([
                 'error' => 'No filenames found',
             ], 400);
-        } else {
-            $files = explode(',', $files);
         }
 
         $excel = new \PHPExcel();
@@ -77,45 +75,31 @@ class AppController
                 ->getStyle()
                     ->applyFromArray($this->linkStyle);
 
-            $sheet->getCell($linkCell)->getHyperlink()->setUrl($filePath);
-            $sheet->getCell($linkCell)->getHyperlink()->setTooltip($fileName);
+            // $sheet->getCell($linkCell)->getHyperlink()->setUrl('http://www.phpexcel.net');
+            // $sheet->getCell($linkCell)->getHyperlink()->setUrl($filePath);
+            // $sheet->getCell($linkCell)->getHyperlink()->setTooltip($fileName);
         }
 
         /** @var Uuid $uuid */
         $uuid = Uuid::uuid4();
 
-        $saveName = $uuid . '.xlsx';
-        $savePath = $this->app['file_dir'] . '/' . $saveName;
+        $fileName = $uuid . '.xlsx';
+        $writer   = \PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
 
-        $writer = \PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-        $writer->save($savePath);
+        ob_start();
+        $writer->save('php://output');
 
-        return $this->app->json([
-            'files'       => $files,
-            'downloadURI' => $this->app['url_generator']->generate('download', ['uuid' => $uuid->toString()]),
+        $response = new Response(ob_get_clean());
+        $response->setPublic();
+
+        $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName);
+
+        $response->headers->add([
+            'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Disposition' => $disposition,
+            'Pragma'              => 'no-cache',
+            'Expired'             => 0,
         ]);
-    }
-
-    /**
-     * @param string $uuid
-     * @return BinaryFileResponse
-     */
-    public function downloadAction($uuid)
-    {
-        $filename = $uuid . '.xlsx';
-        $file     = $this->app['file_dir'] . '/' . $filename;
-
-        if (!file_exists($file)) {
-            $this->app->abort(404, 'File does not exist');
-        }
-
-        $response = new BinaryFileResponse(new \SplFileInfo($file));
-        // $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-
-        $response->setContentDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $filename
-        );
 
         return $response;
     }
