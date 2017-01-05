@@ -2,9 +2,11 @@
   "name": "yet-another-webpack-es6-starterkit",
   "version": "1.0.0",
   "description": "A light foundation for your next frontend project based on webpack.",
+  "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack-prod.config.js --colors",
-    "dev": "webpack-dev-server --config webpack-dev.config.js --watch --colors"
+    "start": "node index.js",
+    "wp-build": "webpack --config webpack-prod.config.js --colors",
+    "wp-dev": "webpack-dev-server --config webpack-dev.config.js --watch --colors"
   },
   "repository": {
     "type": "git",
@@ -56,7 +58,9 @@
     "babel-polyfill": "^6.9.0",
     "bootstrap": "^3.3.7",
     "dropzone": "^4.3.0",
+    "ejs": "^2.5.5",
     "exceljs": "^0.2.38",
+    "express": "^4.14.0",
     "jquery": "^3.1.1"
   }
 }
