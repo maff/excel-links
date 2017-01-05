@@ -1,15 +1,18 @@
 # tmp files
-.npm
 *.log
-npm-debug.log*
 
-# NPM
-/node_modules
+# Node build artifacts
+.npm
+node_modules
 
-# composer
-/vendor
+# Local development
+*.env
+*.dev
+.DS_Store
 
-# webpack build
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Webpack build
 /web/dist
-
-/var/files
