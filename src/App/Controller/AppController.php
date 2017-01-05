@@ -78,8 +78,8 @@ class AppController
                     ->applyFromArray($this->linkStyle);
 
             $sheet->getCell($linkCell)->getHyperlink()->setUrl('http://www.phpexcel.net');
-            // $sheet->getCell($linkCell)->getHyperlink()->setUrl($filePath);
-            // $sheet->getCell($linkCell)->getHyperlink()->setTooltip($fileName);
+            // $worksheet->getCell($linkCell)->getHyperlink()->setUrl($filePath);
+            // $worksheet->getCell($linkCell)->getHyperlink()->setTooltip($fileName);
         }
 
         /** @var Uuid $uuid */
@@ -97,7 +97,7 @@ class AppController
         $disposition = $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName);
 
         $response->headers->add([
-            'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Type'        => 'application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet',
             'Content-Disposition' => $disposition,
             'Pragma'              => 'no-cache',
             'Expired'             => 0,
