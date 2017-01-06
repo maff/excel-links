@@ -18,10 +18,37 @@ app.get('/', function(req, res) {
 });
 
 app.post('/process', function(req, res) {
+    let filename = req.body.filename;
+    if (!filename) {
+        res.status(400).send('Missing filename');
+    }
+
+    if (!filename.match(/^[a-zA-Z0-9\_\-\.]+\.xlsx$/)) {
+        res.status(400).send('Invalid filename');
+    }
+
+    let imagePath = req.body.imagePath;
+    if (!imagePath) {
+        res.status(400).send('Missing image path');
+    }
+
+    imagePath = imagePath.replace('/', '');
+    if (!imagePath.match(/^[a-zA-Z0-9\_\-\.]+$/)) {
+        res.status(400).send('Invalid image path');
+    }
+
     let files = req.body.files;
     if (!files || files.length === 0) {
         res.status(400).send('No files were passed');
     }
+
+    let params = {
+        filename: filename,
+        imagePath: imagePath,
+        files: files
+    };
+
+    console.log('/process params', params);
 
     let Excel = require('exceljs');
 
@@ -32,7 +59,7 @@ app.post('/process', function(req, res) {
         let row = worksheet.getRow(i + 1);
         let nameCell = row.getCell(1);
         let linkCell = row.getCell(2);
-        let link = 'Reduziert/' + file;
+        let link = imagePath + '/' + file;
 
         nameCell.value = file;
 
@@ -50,16 +77,15 @@ app.post('/process', function(req, res) {
         row.commit();
     });
 
-    let filename = 'fooblah.xlsx';
-
     res.type('.xlsx');
     res.set({
         'Content-Disposition': 'attachment; filename="' + filename + '"'
     });
 
-    // write to a stream
+    // write to response stream
     workbook.xlsx.write(res)
         .then(function() {
+            console.log('Written to response stream');
             res.send();
         });
 });
