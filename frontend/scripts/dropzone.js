@@ -52,7 +52,7 @@ $submitButton.on('click', function (e) {
     // let fileNames = [];
     files.forEach(function(file, i) {
         let $input = $('<input type="hidden" />');
-        $input.attr('name', 'files[]');
+        $input.attr('name', 'files');
         $input.val(file.name);
         $input.appendTo($form);
 
