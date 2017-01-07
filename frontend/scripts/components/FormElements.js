@@ -1,16 +1,13 @@
 const React = require('react');
 
-class DataForm extends React.Component {
+class FormElements extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            filename: 'excel-links.xlsx',
-            imagePath: 'images'
-        };
+        this.updateFormData = props.updateFormData;
 
+        this.state = props.formData;
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -26,15 +23,9 @@ class DataForm extends React.Component {
         console.log(this.state);
     }
 
-    handleSubmit(event) {
-        console.log('SUBMIT', event);
-        console.log(this.state);
-        event.preventDefault();
-    }
-
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <div>
                 <div className="form-group">
                     <label htmlFor="inputFilename">Filename</label>
                     <input
@@ -61,13 +52,9 @@ class DataForm extends React.Component {
                         onChange={this.handleChange}
                     />
                 </div>
-
-                <div className="form-group submit-group">
-                    <input type="submit" className="btn btn-primary btn-lg" value="Process" />
-                </div>
-            </form>
+            </div>
         );
     }
 }
 
-export default DataForm;
+export default FormElements;

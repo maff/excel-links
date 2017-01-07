@@ -6,7 +6,7 @@ class FileDropzone extends React.Component {
         super(props);
 
         this.state = {
-            files: []
+            files: props.files
         };
 
         this.onDrop = this.onDrop.bind(this);
