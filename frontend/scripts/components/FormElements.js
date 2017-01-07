@@ -2,10 +2,6 @@ import React from 'react';
 
 class FormElements extends React.Component {
     handleChange(event) {
-        console.log(event);
-        console.log(event.target);
-        console.log(event.target.name);
-
         this.props.setFormData(event.target.name, event.target.value);
     }
 

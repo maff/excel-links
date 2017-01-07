@@ -22,16 +22,10 @@ class App extends React.Component {
     }
 
     setFormData(name, value) {
-        console.log('SETFORMDATA', name, value);
-
         let formData = this.state.formData;
         formData[name] = value;
 
-        console.log('FORMDATA', formData);
-
         this.setState({formData: formData});
-
-        console.log('STATE', this.state);
     }
 
     addFiles(newFiles) {
@@ -69,7 +63,6 @@ class App extends React.Component {
             responseType: 'blob',
         })
             .then((response) => {
-                console.log(response);
                 downloaded.push({
                     name: data.filename,
                     blob: response.data

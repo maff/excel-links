@@ -26,8 +26,6 @@ app.get('/', function(req, res) {
 });
 
 app.post('/process', function(req, res) {
-    console.log('BODY', req.body);
-
     let filename = req.body.filename || 'excel-links.xlsx';
     if (!filename) {
         res.status(400).send('Missing filename');

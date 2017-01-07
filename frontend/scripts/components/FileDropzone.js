@@ -3,9 +3,6 @@ import Dropzone from 'react-dropzone';
 
 class FileDropzone extends React.Component {
     onDrop(acceptedFiles, rejectedFiles) {
-        console.log('Accepted: ', acceptedFiles);
-        console.log('Rejected: ', rejectedFiles);
-
         this.props.addFiles(acceptedFiles);
     }
 
