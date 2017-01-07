@@ -4,6 +4,14 @@ var app = express();
 const util = require('util');
 const bodyParser = require('body-parser')
 
+app.locals.assetUrl = function (asset) {
+    if (process.env.NODE_ENV !== 'production') {
+        return '//localhost:1337' + asset;
+    } else {
+        return '/dist' + asset;
+    }
+};
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(bodyParser.json());
@@ -14,7 +22,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  res.render('pages/index');
+  res.render('index');
 });
 
 app.post('/process', function(req, res) {
