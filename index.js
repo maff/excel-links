@@ -6,7 +6,7 @@ const bodyParser = require('body-parser')
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/web'));
 
 // views is directory for all template files
@@ -18,7 +18,9 @@ app.get('/', function(req, res) {
 });
 
 app.post('/process', function(req, res) {
-    let filename = req.body.filename;
+    console.log('BODY', req.body);
+
+    let filename = req.body.filename || 'excel-links.xlsx';
     if (!filename) {
         res.status(400).send('Missing filename');
     }
@@ -27,7 +29,7 @@ app.post('/process', function(req, res) {
         res.status(400).send('Invalid filename');
     }
 
-    let imagePath = req.body.imagePath;
+    let imagePath = req.body.imagePath || 'images/';
     if (!imagePath) {
         res.status(400).send('Missing image path');
     }

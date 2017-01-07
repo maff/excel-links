@@ -17,6 +17,8 @@ let $submitButton = $('#submitButton');
 $submitButton.prop('disabled', true);
 
 let files = [];
+let downloaded = [];
+
 let dropzone = new Dropzone("div#dropzone", {
     url: '/',
     uploadMultiple: true,
@@ -41,23 +43,63 @@ let dropzone = new Dropzone("div#dropzone", {
     }
 });
 
+let $downloadContainer = $('#download-container');
+let $downloadList = $downloadContainer.find('ul');
+
+function updateDownloaded() {
+    $downloadList.find('li').remove();
+
+    downloaded.forEach(function(file, i) {
+        let $li = $('<li />')
+            .appendTo($downloadList);
+
+        let $link = $('<a />')
+            .attr('href', '#')
+            .text(file.name)
+            .appendTo($li);
+
+        $link.on('click', function (e) {
+            e.preventDefault();
+            FileSaver.saveAs(file.blob, file.name);
+        });
+    });
+}
+
 $submitButton.on('click', function (e) {
     e.preventDefault();
 
-    let $form = $('form#file-form');
-
-    // remove previously set file inputs
-    $form
-        .find('input[type="hidden"][name="files"]')
-        .remove();
+    let data = {
+        files: []
+    };
 
     files.forEach(function(file, i) {
-        let $input = $('<input />');
-        $input.attr('type', 'hidden');
-        $input.attr('name', 'files');
-        $input.val(file.name);
-        $input.appendTo($form);
+        data.files.push(file.name);;
     });
 
-    $form.submit();
+    let $form = $('form#file-form');
+    $form.serializeArray().forEach(function(item, i) {
+        if (item.value) {
+            data[item.name] = item.value;
+        }
+    });
+
+    console.log('DATA', data);
+
+    axios.post('/process', data, {
+        responseType: 'blob'
+    })
+        .then(function (response) {
+            console.log(response);
+            downloaded.push({
+                name: 'fooblah.xlsx',
+                blob: response.data
+            });
+
+            updateDownloaded();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 });
+
+updateDownloaded();
