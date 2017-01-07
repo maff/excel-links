@@ -1,5 +1,5 @@
-const React = require('react');
-const Dropzone = require('react-dropzone');
+import React from 'react';
+import Dropzone from 'react-dropzone';
 
 class FileDropzone extends React.Component {
     onDrop(acceptedFiles, rejectedFiles) {

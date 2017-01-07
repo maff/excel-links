@@ -1,8 +1,10 @@
-const React = require('react');
-
+import React from 'react';
 import FileDropzone from './FileDropzone';
 import FileList from './FileList';
 import FormElements from './FormElements';
+import DownloadList from './DownloadList';
+
+import axios from 'axios';
 
 class App extends React.Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class App extends React.Component {
                 filename: 'excel-links.xlsx',
                 imagePath: 'images'
             },
-            files: []
+            files: [],
+            downloaded: []
         };
     }
 
@@ -25,7 +28,7 @@ class App extends React.Component {
 
         console.log('FORMDATA', formData);
 
-        this.setState({ formData: formData });
+        this.setState({formData: formData});
 
         console.log('STATE', this.state);
     }
@@ -52,6 +55,33 @@ class App extends React.Component {
         console.log('SUBMIT', event);
         console.log(this.state);
 
+        let that = this;
+
+        let data = Object.assign({}, this.state.formData);
+        data.files = [];
+
+        this.state.files.forEach((file) => {
+            data.files.push(file.name);
+        });
+
+        let downloaded = this.state.downloaded;
+
+        axios.post('/process', data, {
+            responseType: 'blob'
+        })
+            .then(function (response) {
+                console.log(response);
+                downloaded.push({
+                    name: data.filename,
+                    blob: response.data
+                });
+
+                that.setState({ downloaded: downloaded });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         event.preventDefault();
     }
 
@@ -61,18 +91,18 @@ class App extends React.Component {
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="row">
                         <div className="col-5">
-                            <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)} />
+                            <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)}/>
 
                             <div className="form-group submit-group">
-                                <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0} />
+                                <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0}/>
                             </div>
                         </div>
                         <div className="col-5">
-                            <FileDropzone addFiles={this.addFiles.bind(this)} />
-                            <FileList files={this.state.files} removeFile={this.removeFile.bind(this)} />
+                            <FileDropzone addFiles={this.addFiles.bind(this)}/>
+                            <FileList files={this.state.files} removeFile={this.removeFile.bind(this)}/>
                         </div>
                         <div className="col-2">
-                            Results
+                            <DownloadList files={this.state.downloaded}/>
                         </div>
                     </div>
                 </form>
