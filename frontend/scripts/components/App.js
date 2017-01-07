@@ -1,6 +1,7 @@
 const React = require('react');
 
 import FileDropzone from './FileDropzone';
+import FileList from './FileList';
 import FormElements from './FormElements';
 
 class App extends React.Component {
@@ -14,16 +15,37 @@ class App extends React.Component {
             },
             files: []
         };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleFormDataChange(event) {
+    setFormData(name, value) {
+        console.log('SETFORMDATA', name, value);
 
+        let formData = this.state.formData;
+        formData[name] = value;
+
+        console.log('FORMDATA', formData);
+
+        this.setState({ formData: formData });
+
+        console.log('STATE', this.state);
     }
 
-    handleFilesChange() {
+    addFiles(newFiles) {
+        let files = this.state.files;
 
+        newFiles.forEach((file) => {
+            files.push(file);
+        });
+
+        this.setState({files: files});
+    }
+
+    removeFile(index) {
+        let files = this.state.files;
+
+        files.splice(index, 1);
+
+        this.setState({files: files});
     }
 
     handleSubmit(event) {
@@ -36,17 +58,18 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="row">
                         <div className="col-5">
-                            <FormElements formData={this.state.formData} />
+                            <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)} />
 
                             <div className="form-group submit-group">
-                                <input type="submit" className="btn btn-primary btn-lg" value="Process" />
+                                <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0} />
                             </div>
                         </div>
                         <div className="col-5">
-                            <FileDropzone files={this.state.files} />
+                            <FileDropzone addFiles={this.addFiles.bind(this)} />
+                            <FileList files={this.state.files} removeFile={this.removeFile.bind(this)} />
                         </div>
                         <div className="col-2">
                             Results

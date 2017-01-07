@@ -1,29 +1,17 @@
 const React = require('react');
 
 class FormElements extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.updateFormData = props.updateFormData;
-
-        this.state = props.formData;
-        this.handleChange = this.handleChange.bind(this);
-    }
-
     handleChange(event) {
         console.log(event);
         console.log(event.target);
         console.log(event.target.name);
 
-        let state = {};
-        state[event.target.name] = event.target.value;
-
-        this.setState(state);
-
-        console.log(this.state);
+        this.props.setFormData(event.target.name, event.target.value);
     }
 
     render() {
+        let handleChange = this.handleChange.bind(this);
+
         return (
             <div>
                 <div className="form-group">
@@ -35,8 +23,8 @@ class FormElements extends React.Component {
                         id="inputFilename"
                         placeholder="Enter filename (*.xlsx)"
                         pattern="^.*\.xlsx$"
-                        value={this.state.filename}
-                        onChange={this.handleChange}
+                        value={this.props.formData.filename}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -48,8 +36,8 @@ class FormElements extends React.Component {
                         className="form-control"
                         id="inputImagePath"
                         placeholder="Enter path to images"
-                        value={this.state.imagePath}
-                        onChange={this.handleChange}
+                        value={this.props.formData.imagePath}
+                        onChange={handleChange}
                     />
                 </div>
             </div>
