@@ -57,7 +57,7 @@
   "dependencies": {
     "babel-polyfill": "^6.9.0",
     "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0-alpha.6",
     "dropzone": "^4.3.0",
     "ejs": "^2.5.5",
     "exceljs": "^0.2.38",
