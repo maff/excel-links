@@ -1,10 +1,10 @@
-var express = require('express');
-var app = express();
-
+const express = require('express');
 const util = require('util');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
-app.locals.assetUrl = function (asset) {
+let app = express();
+
+app.locals.assetUrl = (asset) => {
     if (process.env.NODE_ENV !== 'production') {
         return '//localhost:1337' + asset;
     } else {
@@ -21,11 +21,11 @@ app.use(express.static(__dirname + '/web'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/process', function(req, res) {
+app.post('/process', (req, res) => {
     let filename = req.body.filename || 'excel-links.xlsx';
     if (!filename) {
         res.status(400).send('Missing filename');
@@ -58,12 +58,11 @@ app.post('/process', function(req, res) {
 
     console.log('/process params', params);
 
-    let Excel = require('exceljs');
-
+    const Excel = require('exceljs');
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet('Links');
 
-    files.forEach(function(file, i) {
+    files.forEach((file, i) => {
         let row = worksheet.getRow(i + 1);
         let nameCell = row.getCell(1);
         let linkCell = row.getCell(2);
@@ -92,12 +91,11 @@ app.post('/process', function(req, res) {
 
     // write to response stream
     workbook.xlsx.write(res)
-        .then(function() {
-            console.log('Written to response stream');
+        .then(() => {
             res.send();
         });
 });
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'));
 });
