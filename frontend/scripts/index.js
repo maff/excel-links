@@ -5,8 +5,20 @@ if (module.hot) {
 }
 
 import 'babel-polyfill';
-import './dropzone';
-import '../styles/index.scss';
 
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// import './dropzone';
+
+import '../styles/index.scss';
 import 'bootstrap/scss/bootstrap.scss';
 
+let foo = 'bar';
+
+ReactDOM.render(
+    <div className="container">
+        <h1>Hello, world! {foo}</h1>
+    </div>,
+    document.getElementById('app')
+);
