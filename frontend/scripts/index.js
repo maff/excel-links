@@ -14,6 +14,8 @@ import App from './components/App';
 import '../styles/index.scss';
 import 'bootstrap/scss/bootstrap.scss';
 
+import 'nprogress/nprogress.css';
+
 ReactDOM.render(
     <App />,
     document.getElementById('app')

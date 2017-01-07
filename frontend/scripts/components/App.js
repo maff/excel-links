@@ -5,6 +5,7 @@ import FormElements from './FormElements';
 import DownloadList from './DownloadList';
 
 import axios from 'axios';
+import NProgress from 'nprogress';
 
 class App extends React.Component {
     constructor(props) {
@@ -52,9 +53,6 @@ class App extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log('SUBMIT', event);
-        console.log(this.state);
-
         let that = this;
 
         let data = Object.assign({}, this.state.formData);
@@ -66,10 +64,11 @@ class App extends React.Component {
 
         let downloaded = this.state.downloaded;
 
+        NProgress.start();
         axios.post('/process', data, {
-            responseType: 'blob'
+            responseType: 'blob',
         })
-            .then(function (response) {
+            .then((response) => {
                 console.log(response);
                 downloaded.push({
                     name: data.filename,
@@ -77,9 +76,11 @@ class App extends React.Component {
                 });
 
                 that.setState({ downloaded: downloaded });
+                NProgress.done();
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.log(error);
+                NProgress.done();
             });
 
         event.preventDefault();
