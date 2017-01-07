@@ -8,7 +8,5 @@ import 'babel-polyfill';
 import './dropzone';
 import '../styles/index.scss';
 
-import 'bootstrap/dist/css/bootstrap-reboot.css';
-import 'bootstrap/dist/css/bootstrap-grid.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/scss/bootstrap.scss';
 
