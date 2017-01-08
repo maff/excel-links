@@ -125,7 +125,7 @@ class App extends React.Component {
                                     <h4 className="card-title">
                                         Files
 
-                                        <a href="#" className="clear-link" onClick={this.clearFiles.bind(this)} hidden={false && this.state.files.length === 0}>
+                                        <a href="#" className="clear-link" onClick={this.clearFiles.bind(this)} hidden={this.state.files.length === 0}>
                                             <i className="fa fa-trash-o" />
                                             clear
                                         </a>
