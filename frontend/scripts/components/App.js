@@ -10,8 +10,11 @@ import NProgress from 'nprogress';
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.buildInitialState();
+    }
 
-        this.state = {
+    buildInitialState() {
+        let state = {
             formData: {
                 filename: 'excel-links.xlsx',
                 imagePath: 'images'
@@ -19,6 +22,29 @@ class App extends React.Component {
             files: [],
             downloaded: []
         };
+
+        let saved = JSON.parse(localStorage.getItem('app_state') || '{}');
+
+        if (saved.formData) {
+            state.formData = saved.formData;
+        }
+
+        if (saved.files) {
+            state.files = saved.files;
+        }
+
+        this.state = state;
+    }
+
+    setState(partialState, callback) {
+        super.setState(partialState, callback);
+
+        let saved = {
+            formData: this.state.formData,
+            files: this.state.files
+        };
+
+        localStorage.setItem('app_state', JSON.stringify(saved));
     }
 
     setFormData(name, value) {
