@@ -71,6 +71,8 @@ app.post('/process', (req, res) => {
             hyperlink: link
         };
 
+        linkCell.width = 50;
+
         linkCell.font = {
             color: { argb: 'FF0000FF' },
             underline: true
