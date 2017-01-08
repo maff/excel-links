@@ -122,8 +122,14 @@ class App extends React.Component {
 
                             <div className="card">
                                 <div className="card-block">
-                                    <h4 className="card-title">Files</h4>
-                                    <a href="#" onClick={this.clearFiles.bind(this)} hidden={this.state.files.length === 0}>clear</a>
+                                    <h4 className="card-title">
+                                        Files
+
+                                        <a href="#" className="clear-link" onClick={this.clearFiles.bind(this)} hidden={false && this.state.files.length === 0}>
+                                            <i className="fa fa-trash-o" />
+                                            clear
+                                        </a>
+                                    </h4>
                                 </div>
                                 <div className="card-block card-block--no-pt">
                                     <FileDropzone addFiles={this.addFiles.bind(this)}/>
@@ -158,8 +164,14 @@ class App extends React.Component {
 
                                     <div id="results-card" className="card" hidden={this.state.downloaded.length === 0}>
                                         <div className="card-block">
-                                            <h4 className="card-title">Results</h4>
-                                            <a href="#" onClick={this.clearDownloadedFiles.bind(this)}>clear</a>
+                                            <h4 className="card-title">
+                                                Results
+
+                                                <a href="#" className="clear-link" onClick={this.clearDownloadedFiles.bind(this)}>
+                                                    <i className="fa fa-trash-o" />
+                                                    clear
+                                                </a>
+                                            </h4>
                                         </div>
                                         <div className="card-block card-block--no-pt">
                                             <DownloadList files={this.state.downloaded} removeDownloadedFile={this.removeDownloadedFile.bind(this)} />
