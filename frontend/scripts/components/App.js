@@ -38,16 +38,35 @@ class App extends React.Component {
         this.setState({files: files});
     }
 
+    handleListRemove(property, index) {
+        let state = {};
+        state[property] = this.state[property];
+        state[property].splice(index, 1);
+
+        this.setState(state);
+    }
+
+    handleListClear(property) {
+        let state = {};
+        state[property] = [];
+
+        this.setState(state);
+    }
+
     removeFile(index) {
-        let files = this.state.files;
-
-        files.splice(index, 1);
-
-        this.setState({files: files});
+        this.handleListRemove('files', index);
     }
 
     clearFiles() {
-        this.setState({files: []});
+        this.handleListClear('files');
+    }
+
+    removeDownloadedFile(index) {
+        this.handleListRemove('downloaded', index);
+    }
+
+    clearDownloadedFiles() {
+        this.handleListClear('downloaded');
     }
 
     handleSubmit(event) {
@@ -119,9 +138,10 @@ class App extends React.Component {
                             <div className="card" hidden={this.state.downloaded.length === 0}>
                                 <div className="card-block">
                                     <h4 className="card-title">Results</h4>
+                                    <a href="#" onClick={this.clearDownloadedFiles.bind(this)}>clear</a>
                                 </div>
                                 <div className="card-block card-block--no-pt">
-                                    <DownloadList files={this.state.downloaded} />
+                                    <DownloadList files={this.state.downloaded} removeDownloadedFile={this.removeDownloadedFile.bind(this)} />
                                 </div>
                             </div>
 

@@ -18,6 +18,10 @@ class DownloadList extends React.Component {
                     <a href="#" onClick={() => that.downloadFile(index)}>
                         {file.name}
                     </a>
+
+                    <a className="close" onClick={() => that.props.removeDownloadedFile(index)}>
+                        <span>&times;</span>
+                    </a>
                 </li>
             );
         });
