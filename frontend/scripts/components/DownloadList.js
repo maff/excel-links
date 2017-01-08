@@ -15,6 +15,7 @@ class DownloadList extends React.Component {
         let listItems = this.props.files.map(function (file, index) {
             return (
                 <li className="list-group-item" key={index}>
+                    <i className="fa fa-file-excel-o" />
                     <a href="#" onClick={() => that.downloadFile(index)}>
                         {file.name}
                     </a>

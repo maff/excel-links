@@ -65,12 +65,15 @@
     "ejs": "^2.5.5",
     "exceljs": "^0.2.38",
     "express": "^4.14.0",
+    "file-loader": "^0.9.0",
     "file-saver": "^1.3.3",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "npm-run-all": "^4.0.0",
     "nprogress": "^0.2.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "react-dropzone": "^3.8.0"
+    "react-dropzone": "^3.8.0",
+    "url-loader": "^0.5.7"
   }
 }

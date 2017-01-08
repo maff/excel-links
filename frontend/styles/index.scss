@@ -15,6 +15,10 @@
 .list-group {
   position: relative;
 
+  .fa {
+    margin-right: 7px;
+  }
+
   .list-group-icon {
     &.list-group-icon--right {
       position: absolute;
