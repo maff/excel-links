@@ -7,7 +7,7 @@ class FileList extends React.Component {
         let fileListItems = this.props.files.map(function (file, index) {
             return (
                 <li className="list-group-item" key={index}>
-                    {file.name}
+                    {file}
 
                     <a className="close" onClick={() => that.props.removeFile(index)}>
                         <span>&times;</span>

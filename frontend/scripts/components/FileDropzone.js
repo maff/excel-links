@@ -3,7 +3,12 @@ import Dropzone from 'react-dropzone';
 
 class FileDropzone extends React.Component {
     onDrop(acceptedFiles, rejectedFiles) {
-        this.props.addFiles(acceptedFiles);
+        let filenames = [];
+        acceptedFiles.forEach((file) => {
+            filenames.push(file.name);
+        });
+
+        this.props.addFiles(filenames);
     }
 
     render() {

@@ -35,6 +35,9 @@ class App extends React.Component {
             files.push(file);
         });
 
+        files = [ ...new Set(files) ]; // unique
+        files.sort();
+
         this.setState({files: files});
     }
 
@@ -73,11 +76,7 @@ class App extends React.Component {
         let that = this;
 
         let data = Object.assign({}, this.state.formData);
-        data.files = [];
-
-        this.state.files.forEach((file) => {
-            data.files.push(file.name);
-        });
+        data.files = this.state.files;
 
         let downloaded = this.state.downloaded;
 
