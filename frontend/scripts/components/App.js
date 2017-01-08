@@ -107,7 +107,7 @@ class App extends React.Component {
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="row">
 
-                        <div className="col-4">
+                        <div className="col-6">
 
                             <div className="card">
                                 <div className="card-block">
@@ -124,23 +124,37 @@ class App extends React.Component {
 
                         </div>
 
-                        <div className="col-4">
-                            <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)}/>
+                        <div className="col-6">
 
-                            <div className="form-group submit-group">
-                                <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0}/>
-                            </div>
-                        </div>
+                            <div className="row">
+                                <div className="col-12">
 
-                        <div className="col-4">
+                                    <div className="card">
+                                        <div className="card-block">
+                                            <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)}/>
+                                        </div>
 
-                            <div className="card" hidden={this.state.downloaded.length === 0}>
-                                <div className="card-block">
-                                    <h4 className="card-title">Results</h4>
-                                    <a href="#" onClick={this.clearDownloadedFiles.bind(this)}>clear</a>
+                                        <div className="card-block card-block--no-pt submit-group">
+                                            <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0}/>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div className="card-block card-block--no-pt">
-                                    <DownloadList files={this.state.downloaded} removeDownloadedFile={this.removeDownloadedFile.bind(this)} />
+                            </div>
+
+                            <div className="row">
+                                <div className="col-12">
+
+                                    <div id="results-card" className="card" hidden={this.state.downloaded.length === 0}>
+                                        <div className="card-block">
+                                            <h4 className="card-title">Results</h4>
+                                            <a href="#" onClick={this.clearDownloadedFiles.bind(this)}>clear</a>
+                                        </div>
+                                        <div className="card-block card-block--no-pt">
+                                            <DownloadList files={this.state.downloaded} removeDownloadedFile={this.removeDownloadedFile.bind(this)} />
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
