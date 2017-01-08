@@ -46,6 +46,10 @@ class App extends React.Component {
         this.setState({files: files});
     }
 
+    clearFiles() {
+        this.setState({files: []});
+    }
+
     handleSubmit(event) {
         let that = this;
 
@@ -90,6 +94,7 @@ class App extends React.Component {
                             <div className="card">
                                 <div className="card-block">
                                     <h4 className="card-title">Files</h4>
+                                    <a href="#" onClick={this.clearFiles.bind(this)}>clear</a>
                                 </div>
                                 <div className="card-block card-block--no-pt">
                                     <FileDropzone addFiles={this.addFiles.bind(this)}/>
