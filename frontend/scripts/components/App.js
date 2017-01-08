@@ -113,7 +113,7 @@ class App extends React.Component {
                             <div className="card">
                                 <div className="card-block">
                                     <h4 className="card-title">Files</h4>
-                                    <a href="#" onClick={this.clearFiles.bind(this)}>clear</a>
+                                    <a href="#" onClick={this.clearFiles.bind(this)} hidden={this.state.files.length === 0}>clear</a>
                                 </div>
                                 <div className="card-block card-block--no-pt">
                                     <FileDropzone addFiles={this.addFiles.bind(this)}/>
