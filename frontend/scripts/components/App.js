@@ -84,19 +84,42 @@ class App extends React.Component {
             <div className="container">
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="row">
-                        <div className="col-5">
+
+                        <div className="col-4">
+
+                            <div className="card">
+                                <div className="card-block">
+                                    <h4 className="card-title">Files</h4>
+                                </div>
+                                <div className="card-block card-block--no-pt">
+                                    <FileDropzone addFiles={this.addFiles.bind(this)}/>
+                                </div>
+                                <div className="card-block card-block--no-pt" hidden={this.state.files.length === 0}>
+                                    <FileList files={this.state.files} removeFile={this.removeFile.bind(this)}/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className="col-4">
                             <FormElements formData={this.state.formData} setFormData={this.setFormData.bind(this)}/>
 
                             <div className="form-group submit-group">
                                 <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0}/>
                             </div>
                         </div>
-                        <div className="col-5">
-                            <FileDropzone addFiles={this.addFiles.bind(this)}/>
-                            <FileList files={this.state.files} removeFile={this.removeFile.bind(this)}/>
-                        </div>
-                        <div className="col-2">
-                            <DownloadList files={this.state.downloaded}/>
+
+                        <div className="col-4">
+
+                            <div className="card" hidden={this.state.downloaded.length === 0}>
+                                <div className="card-block">
+                                    <h4 className="card-title">Results</h4>
+                                </div>
+                                <div className="card-block card-block--no-pt">
+                                    <DownloadList files={this.state.downloaded} />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </form>

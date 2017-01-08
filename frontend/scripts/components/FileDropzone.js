@@ -10,8 +10,8 @@ class FileDropzone extends React.Component {
         let onDrop = this.onDrop.bind(this);
 
         return (
-            <Dropzone onDrop={onDrop}>
-                <div>Try dropping some files here, or click to select files to upload.</div>
+            <Dropzone onDrop={onDrop} accept="image/*" className="dropzone" activeClassName="dropzone--active" rejectClassName="dropzone--reject" >
+                Drop images here or click to select
             </Dropzone>
         );
     }

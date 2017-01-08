@@ -14,7 +14,7 @@ class DownloadList extends React.Component {
 
         let listItems = this.props.files.map(function (file, index) {
             return (
-                <li key={index}>
+                <li className="list-group-item" key={index}>
                     <a href="#" onClick={() => that.downloadFile(index)}>
                         {file.name}
                     </a>
@@ -23,7 +23,7 @@ class DownloadList extends React.Component {
         });
 
         return (
-            <ul hidden={this.props.files.length === 0}>
+            <ul className="list-group list-group-flush">
                 {listItems}
             </ul>
         );

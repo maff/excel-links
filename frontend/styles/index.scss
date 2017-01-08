@@ -2,8 +2,35 @@
   margin: 25px auto;
 }
 
+.card {
+  h4 {
+    margin: 0;
+  }
+
+  .card-block--no-pt {
+    padding-top: 0 !important;
+  }
+}
+
 .dropzone {
   border: 5px dashed #ccc;
+  text-align: center;
+  color: #ccc;
+  font-size: 16px;
+  min-height: auto;
+
+  &.dropzone--active {
+    border-color: #a1a1a1;
+  }
+
+  &.dropzone--reject {
+    border-color: #ad1b00;
+  }
+}
+
+.submit-group {
+  margin-top: 1.25rem;
+  text-align: right;
 }
 
 .mt20 {
