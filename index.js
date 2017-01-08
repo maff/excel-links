@@ -56,23 +56,18 @@ app.post('/process', (req, res) => {
         files: files
     };
 
-    console.log('/process params', params);
-
     const Excel = require('exceljs');
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet('Links');
 
     files.forEach((file, i) => {
         let row = worksheet.getRow(i + 1);
-        let nameCell = row.getCell(1);
-        let linkCell = row.getCell(2);
+        let linkCell = row.getCell(1);
         let link = imagePath + '/' + file;
-
-        nameCell.value = file;
 
         linkCell.type  = Excel.ValueType.Hyperlink;
         linkCell.value = {
-            text: link,
+            text: file,
             hyperlink: link
         };
 
