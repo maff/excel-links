@@ -19,7 +19,7 @@ class DownloadList extends React.Component {
                         {file.name}
                     </a>
 
-                    <a className="close" onClick={() => that.props.removeDownloadedFile(index)}>
+                    <a className="close list-group-icon list-group-icon--right" onClick={() => that.props.removeDownloadedFile(index)}>
                         <span>&times;</span>
                     </a>
                 </li>

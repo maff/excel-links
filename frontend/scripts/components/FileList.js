@@ -9,7 +9,7 @@ class FileList extends React.Component {
                 <li className="list-group-item" key={index}>
                     {file}
 
-                    <a className="close" onClick={() => that.props.removeFile(index)}>
+                    <a className="close list-group-icon list-group-icon--right" onClick={() => that.props.removeFile(index)}>
                         <span>&times;</span>
                     </a>
                 </li>

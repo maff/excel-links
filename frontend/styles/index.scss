@@ -12,6 +12,17 @@
   }
 }
 
+.list-group {
+  position: relative;
+
+  .list-group-icon {
+    &.list-group-icon--right {
+      position: absolute;
+      right: 0;
+    }
+  }
+}
+
 .dropzone {
   border: 5px dashed #ccc;
   text-align: center;
