@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "NODE_ENV=development npm-run-all --parallel wp-dev start",
-    "wp-build": "webpack --config webpack-prod.config.js --watch --colors",
-    "wp-dev": "webpack-dev-server --config webpack-dev.config.js --watch --colors"
+    "wp-build": "webpack --config webpack-prod.config.js --colors --progress",
+    "wp-dev": "webpack-dev-server --config webpack-dev.config.js --watch --colors",
+    "heroku-postbuild": "npm run wp-build"
   },
   "repository": {
     "type": "git",
