@@ -25,7 +25,7 @@ class FormElements extends React.Component {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inputImagePath">Image Path</label>
+                    <label htmlFor="inputImagePath">Link base path</label>
                     <input
                         type="text"
                         name="imagePath"

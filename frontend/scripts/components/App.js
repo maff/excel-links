@@ -72,8 +72,19 @@ class App extends React.Component {
         this.handleListClear('downloaded');
     }
 
+    normalizeFormData() {
+        let imagePath = this.state.formData.imagePath;
+        imagePath = imagePath.replace(/\//, '');
+        imagePath = imagePath + '/';
+
+        this.state.formData.imagePath = imagePath;
+
+        this.setState({formData: this.state.formData});
+    }
+
     handleSubmit(event) {
         let that = this;
+        this.normalizeFormData();
 
         let data = Object.assign({}, this.state.formData);
         data.files = this.state.files;
@@ -135,7 +146,7 @@ class App extends React.Component {
                                         </div>
 
                                         <div className="card-block card-block--no-pt submit-group">
-                                            <input type="submit" className="btn btn-primary btn-lg" value="Process" disabled={this.state.files.length === 0}/>
+                                            <input type="submit" className="btn btn-primary btn-lg" value="Generate Excel File" disabled={this.state.files.length === 0}/>
                                         </div>
                                     </div>
 
