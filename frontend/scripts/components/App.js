@@ -113,7 +113,9 @@ class App extends React.Component {
 
     normalizeFormData() {
         let imagePath = this.state.formData.imagePath;
-        imagePath = imagePath.replace(/\//, '');
+        imagePath = imagePath.replace(/\\/g, '/');
+        imagePath = imagePath.replace(/^\/+/g, '');
+        imagePath = imagePath.replace(/\/+$/g, '');
         imagePath = imagePath + '/';
 
         this.state.formData.imagePath = imagePath;
