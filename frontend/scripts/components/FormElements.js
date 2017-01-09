@@ -18,7 +18,6 @@ class FormElements extends React.Component {
                         className="form-control"
                         id="inputFilename"
                         placeholder="Enter filename (*.xlsx)"
-                        pattern="^.*\.xlsx$"
                         value={this.props.formData.filename}
                         onChange={handleChange}
                         required="required"

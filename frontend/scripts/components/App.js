@@ -112,6 +112,11 @@ class App extends React.Component {
     }
 
     normalizeFormData() {
+        let filename = this.state.formData.filename;
+        if (filename && !filename.match(/\.xlsx$/)) {
+            filename = filename + '.xlsx';
+        }
+
         let imagePath = this.state.formData.imagePath;
         imagePath = imagePath.replace(/\\/g, '/');
         imagePath = imagePath.replace(/^\/+/g, '');
@@ -121,16 +126,23 @@ class App extends React.Component {
             imagePath = imagePath + '/';
         }
 
-        this.state.formData.imagePath = imagePath;
+        let formData = {
+            filename: filename,
+            imagePath: imagePath
+        };
 
-        this.setState({formData: this.state.formData});
+        this.setState({
+            formData: formData
+        });
+
+        return formData;
     }
 
     handleSubmit(event) {
         let that = this;
-        this.normalizeFormData();
+        let formData = this.normalizeFormData();
 
-        let data = Object.assign({}, this.state.formData);
+        let data = Object.assign({}, formData);
         data.files = this.state.files;
 
         let downloaded = this.state.downloaded;
