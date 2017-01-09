@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/process', (req, res) => {
-    let filename = req.body.filename || 'excel-links.xlsx';
+    let filename = req.body.filename;
     if (!filename) {
         res.status(400).send({
             error: 'Missing filename'
@@ -43,7 +43,7 @@ app.post('/process', (req, res) => {
         return;
     }
 
-    let imagePath = req.body.imagePath || 'images/';
+    let imagePath = req.body.imagePath;
     if (!imagePath) {
         res.status(400).send({
             error: 'Missing image path'
