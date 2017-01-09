@@ -116,7 +116,10 @@ class App extends React.Component {
         imagePath = imagePath.replace(/\\/g, '/');
         imagePath = imagePath.replace(/^\/+/g, '');
         imagePath = imagePath.replace(/\/+$/g, '');
-        imagePath = imagePath + '/';
+
+        if (imagePath) {
+            imagePath = imagePath + '/';
+        }
 
         this.state.formData.imagePath = imagePath;
 

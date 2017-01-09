@@ -43,17 +43,9 @@ app.post('/process', (req, res) => {
         return;
     }
 
-    let imagePath = req.body.imagePath;
-    if (!imagePath) {
-        res.status(400).send({
-            error: 'Missing image path'
-        });
-
-        return;
-    }
-
+    let imagePath = req.body.imagePath || '';
     imagePath = imagePath.replace(/\/$/, '');
-    if (!imagePath.match(/^[a-zA-Z0-9\_\-\.\:\/\\]+$/)) {
+    if (!imagePath.length === 0 && !imagePath.match(/^[a-zA-Z0-9\_\-\.\:\/\\]+$/)) {
         res.status(400).send({
             error: 'Invalid image path'
         });
@@ -70,12 +62,6 @@ app.post('/process', (req, res) => {
         return;
     }
 
-    let params = {
-        filename: filename,
-        imagePath: imagePath,
-        files: files
-    };
-
     const Excel = require('exceljs');
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet('Links');
@@ -83,7 +69,11 @@ app.post('/process', (req, res) => {
     files.forEach((file, i) => {
         let row = worksheet.getRow(i + 1);
         let linkCell = row.getCell(1);
-        let link = imagePath + '/' + file;
+
+        let link = file;
+        if (imagePath) {
+            link = imagePath + '/' + file;
+        }
 
         linkCell.type  = Excel.ValueType.Hyperlink;
         linkCell.value = {

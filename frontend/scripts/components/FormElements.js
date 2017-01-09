@@ -11,7 +11,7 @@ class FormElements extends React.Component {
         return (
             <div>
                 <div className="form-group">
-                    <label htmlFor="inputFilename">Filename</label>
+                    <label htmlFor="inputFilename">Filename<strong className="text-danger">*</strong></label>
                     <input
                         type="text"
                         name="filename"
@@ -21,6 +21,7 @@ class FormElements extends React.Component {
                         pattern="^.*\.xlsx$"
                         value={this.props.formData.filename}
                         onChange={handleChange}
+                        required="required"
                     />
                 </div>
 
