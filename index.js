@@ -28,26 +28,36 @@ app.get('/', (req, res) => {
 app.post('/process', (req, res) => {
     let filename = req.body.filename || 'excel-links.xlsx';
     if (!filename) {
-        res.status(400).send('Missing filename');
+        res.status(400).send({
+            error: 'Missing filename'
+        });
     }
 
     if (!filename.match(/^[a-zA-Z0-9\_\-\.]+\.xlsx$/)) {
-        res.status(400).send('Invalid filename');
+        res.status(400).send({
+            error: 'Invalid filename'
+        });
     }
 
     let imagePath = req.body.imagePath || 'images/';
     if (!imagePath) {
-        res.status(400).send('Missing image path');
+        res.status(400).send({
+            error: 'Missing image path'
+        });
     }
 
     imagePath = imagePath.replace('/', '');
     if (!imagePath.match(/^[a-zA-Z0-9\_\-\.]+$/)) {
-        res.status(400).send('Invalid image path');
+        res.status(400).send({
+            error: 'Invalid image path'
+        });
     }
 
     let files = req.body.files;
     if (!files || files.length === 0) {
-        res.status(400).send('No files were passed');
+        res.status(400).send({
+            error: 'No files were passed'
+        });
     }
 
     let params = {

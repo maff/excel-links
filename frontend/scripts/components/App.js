@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorList from './ErrorList';
 import FileDropzone from './FileDropzone';
 import FileList from './FileList';
 import FormElements from './FormElements';
@@ -20,7 +21,8 @@ class App extends React.Component {
                 imagePath: 'images'
             },
             files: [],
-            downloaded: []
+            downloaded: [],
+            errors: []
         };
 
         let saved = JSON.parse(localStorage.getItem('app_state') || '{}');
@@ -98,6 +100,17 @@ class App extends React.Component {
         this.handleListClear('downloaded');
     }
 
+    addError(error) {
+        let errors = this.state.errors;
+        errors.push(error);
+
+        this.setState({errors: errors});
+    }
+
+    removeError(index) {
+        this.handleListRemove('errors', index);
+    }
+
     normalizeFormData() {
         let imagePath = this.state.formData.imagePath;
         imagePath = imagePath.replace(/\//, '');
@@ -118,8 +131,9 @@ class App extends React.Component {
         let downloaded = this.state.downloaded;
 
         NProgress.start();
+
         axios.post('/process', data, {
-            responseType: 'blob',
+            responseType: 'blob'
         })
             .then((response) => {
                 downloaded.push({
@@ -128,10 +142,22 @@ class App extends React.Component {
                 });
 
                 that.setState({ downloaded: downloaded });
+
                 NProgress.done();
             })
             .catch((error) => {
-                console.log(error);
+                if (error.response.data) {
+                    // convert JSON blob back to JSON - can this be handled better?
+                    let reader = new FileReader();
+                    reader.readAsText(error.response.data);
+                    reader.onloadend = () => {
+                        let errorJson = JSON.parse(reader.result);
+                        if (errorJson && errorJson.error) {
+                            that.addError(errorJson.error);
+                        }
+                    }
+                }
+
                 NProgress.done();
             });
 
@@ -141,7 +167,14 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
+
                 <form onSubmit={this.handleSubmit.bind(this)}>
+                    <div className="row">
+                        <div className="col-12">
+                            <ErrorList errors={this.state.errors} removeError={this.removeError.bind(this)} />
+                        </div>
+                    </div>
+
                     <div className="row">
 
                         <div className="col-6">
