@@ -31,12 +31,16 @@ app.post('/process', (req, res) => {
         res.status(400).send({
             error: 'Missing filename'
         });
+
+        return;
     }
 
     if (!filename.match(/^[a-zA-Z0-9\_\-\.]+\.xlsx$/)) {
         res.status(400).send({
             error: 'Invalid filename'
         });
+
+        return;
     }
 
     let imagePath = req.body.imagePath || 'images/';
@@ -44,6 +48,8 @@ app.post('/process', (req, res) => {
         res.status(400).send({
             error: 'Missing image path'
         });
+
+        return;
     }
 
     imagePath = imagePath.replace('/', '');
@@ -51,6 +57,8 @@ app.post('/process', (req, res) => {
         res.status(400).send({
             error: 'Invalid image path'
         });
+
+        return;
     }
 
     let files = req.body.files;
@@ -58,6 +66,8 @@ app.post('/process', (req, res) => {
         res.status(400).send({
             error: 'No files were passed'
         });
+
+        return;
     }
 
     let params = {
