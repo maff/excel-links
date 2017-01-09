@@ -52,8 +52,8 @@ app.post('/process', (req, res) => {
         return;
     }
 
-    imagePath = imagePath.replace('/', '');
-    if (!imagePath.match(/^[a-zA-Z0-9\_\-\.]+$/)) {
+    imagePath = imagePath.replace(/\/$/, '');
+    if (!imagePath.match(/^[a-zA-Z0-9\_\-\.\:\/\\]+$/)) {
         res.status(400).send({
             error: 'Invalid image path'
         });
