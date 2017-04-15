@@ -1,7 +1,8 @@
 {
-  "name": "yet-another-webpack-es6-starterkit",
+  "name": "excel-links",
   "version": "1.0.0",
-  "description": "A light foundation for your next frontend project based on webpack.",
+  "license": "MIT",
+  "description": "A simple Node/React web app to write image links to an excel file.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -12,20 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wbkd/yet-another-webpack-es6-starterkit.git"
-  },
-  "keywords": [
-    "webpack",
-    "startkit",
-    "frontend",
-    "es6",
-    "javascript",
-    "webdev"
-  ],
-  "author": "webkid.io",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/wbkd/yet-another-webpack-es6-starterkit/issues"
+    "url": "git+https://github.com/maff/excel-links"
   },
   "eslintConfig": {
     "env": {

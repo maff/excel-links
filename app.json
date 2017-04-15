@@ -1,8 +1,6 @@
 {
-  "name": "Start on Heroku: Node.js",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static"],
+  "name": "Excel Links",
+  "description": "A simple Node/React web app to write image links to an excel file.",
+  "repository": "https://github.com/maff/excel-links",
   "image": "heroku/nodejs"
 }

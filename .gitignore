@@ -11,9 +11,5 @@ node_modules
 *.dev
 .DS_Store
 
-# Docker
-Dockerfile
-docker-compose.yml
-
 # Webpack build
 /web/dist
