@@ -1,6 +1,6 @@
 {
   "name": "excel-links",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "description": "A simple Node/React web app to write image links to an excel file.",
   "main": "index.js",
